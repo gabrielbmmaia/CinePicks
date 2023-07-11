@@ -20,5 +20,6 @@ interface TMDBApi {
         private const val API_KEY = BuildConfig.API_KEY
         private const val DEFAULT_LANGUAGE = "en-US"
         private const val DEFAULT_REGION = "BRA"
+        const val PAGE_SIZE = 20
     }
 }

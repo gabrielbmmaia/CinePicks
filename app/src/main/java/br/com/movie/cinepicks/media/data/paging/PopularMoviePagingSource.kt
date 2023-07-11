@@ -27,5 +27,4 @@ class PopularMoviePagingSource @Inject constructor(
             LoadResult.Error(e)
         }
     }
-
 }
