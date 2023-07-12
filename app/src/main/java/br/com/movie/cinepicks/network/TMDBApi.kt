@@ -17,9 +17,10 @@ interface TMDBApi {
 
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/"
-        private const val API_KEY = BuildConfig.API_KEY
+        const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
+        private val API_KEY = BuildConfig.API_KEY
         private const val DEFAULT_LANGUAGE = "en-US"
-        private const val DEFAULT_REGION = "BRA"
+        private const val DEFAULT_REGION = "BR"
         const val PAGE_SIZE = 20
     }
 }
