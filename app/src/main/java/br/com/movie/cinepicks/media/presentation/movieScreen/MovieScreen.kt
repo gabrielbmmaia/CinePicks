@@ -23,11 +23,15 @@ fun MovieScreen(
     LaunchedEffect(Unit) {
         onEvent(MovieEvent.OnLoadPopularList)
         onEvent(MovieEvent.OnLoadTopRatedList)
+        onEvent(MovieEvent.OnLoadUpcomingList)
+        onEvent(MovieEvent.OnLoadTheaterList)
     }
 
     val spacing = LocalSpacing.current
     val popularList = state.popularList.collectAsLazyPagingItems()
     val topRatedList = state.topRatedList.collectAsLazyPagingItems()
+    val upcomingList = state.upcomingList.collectAsLazyPagingItems()
+    val theaterList = state.theaterList.collectAsLazyPagingItems()
 
     Column(
         modifier = Modifier
@@ -37,6 +41,13 @@ fun MovieScreen(
     ) {
         MediaList(titleList = "Popular", mediaList = popularList)
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
+
+        MediaList(titleList = "Em Cartaz", mediaList = theaterList)
+        Spacer(modifier = Modifier.height(spacing.spaceMedium))
+
+        MediaList(titleList = "Em Breve", mediaList = upcomingList)
+        Spacer(modifier = Modifier.height(spacing.spaceMedium))
+
         MediaList(titleList = "Melhores Avaliados", mediaList = topRatedList)
     }
 }

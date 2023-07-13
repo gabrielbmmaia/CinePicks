@@ -5,7 +5,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import br.com.movie.cinepicks.media.data.paging.PopularMoviePagingSource
+import br.com.movie.cinepicks.media.data.paging.TheaterMoviePagingSource
 import br.com.movie.cinepicks.media.data.paging.TopRatedMoviePagingSource
+import br.com.movie.cinepicks.media.data.paging.UpcomingMoviePagingSource
 import br.com.movie.cinepicks.media.domain.model.Media
 import br.com.movie.cinepicks.media.domain.repository.MediaRepository
 import br.com.movie.cinepicks.network.TMDBApi
@@ -42,4 +44,27 @@ class MediaRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getUpcomingMovies(): Flow<PagingData<Media>> {
+        val pagingSourceFactory = { UpcomingMoviePagingSource(movieService = tmdbApi) }
+        val pager = Pager(
+            config = PagingConfig(pageSize = TMDBApi.PAGE_SIZE),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+
+        return pager.map { dtoPagingData ->
+            dtoPagingData.map { it.toMedia() }
+        }
+    }
+
+    override fun getTheaterMovies(): Flow<PagingData<Media>> {
+        val pagingSourceFactory = { TheaterMoviePagingSource(movieService = tmdbApi) }
+        val pager = Pager(
+            config = PagingConfig(pageSize = TMDBApi.PAGE_SIZE),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+
+        return pager.map { dtoPagingData ->
+            dtoPagingData.map { it.toMedia() }
+        }
+    }
 }

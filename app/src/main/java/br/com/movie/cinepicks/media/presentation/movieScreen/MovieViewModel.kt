@@ -24,15 +24,47 @@ class MovieViewModel @Inject constructor(
             MovieEvent.OnLoadPopularList -> {
                 viewModelScope.launch {
                     _state.update {
-                        it.copy(popularList = repository.getPopularMovies().cachedIn(this@launch))
+                        it.copy(
+                            popularList = repository
+                                .getPopularMovies()
+                                .cachedIn(this@launch)
+                        )
                     }
                 }
             }
 
-            MovieEvent.OnLoadTopRatedList ->{
+            MovieEvent.OnLoadTopRatedList -> {
                 viewModelScope.launch {
                     _state.update {
-                        it.copy(topRatedList = repository.getTopRatedMovies().cachedIn(this@launch))
+                        it.copy(
+                            topRatedList = repository
+                                .getTopRatedMovies()
+                                .cachedIn(this@launch)
+                        )
+                    }
+                }
+            }
+
+            MovieEvent.OnLoadUpcomingList -> {
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            upcomingList = repository
+                                .getUpcomingMovies()
+                                .cachedIn(this@launch)
+                        )
+                    }
+                }
+            }
+
+            MovieEvent.OnLoadTheaterList -> {
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(
+                            theaterList = repository
+                                .getTheaterMovies()
+                                .cachedIn(this@launch)
+                        )
                     }
                 }
             }

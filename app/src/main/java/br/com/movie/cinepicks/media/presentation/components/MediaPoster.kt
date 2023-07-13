@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
@@ -47,7 +48,7 @@ fun MediaPoster(
     val voteAverage = media.voteAverage
 
     Column(
-        modifier = modifier.width(180.dp),
+        modifier = modifier.width(140.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(spacing.spaceSmall)
     ) {
@@ -66,25 +67,17 @@ fun MediaPoster(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(270.dp)
+                    .height(210.dp)
                     .clip(RoundedCornerShape(spacing.spaceSmall))
             )
             voteAverage?.let { vote ->
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(spacing.spaceExtraSmall)
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.Star,
-                        contentDescription = stringResource(id = R.string.vote_average)
-                    )
-                    Text(text = vote.toString())
-                }
+                Text(text = vote.toString())
             }
         }
         Text(
             text = media.title,
             modifier = Modifier.fillMaxWidth(),
-            maxLines = 1,
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
     }

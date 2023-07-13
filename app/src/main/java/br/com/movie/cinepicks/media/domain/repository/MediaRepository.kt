@@ -8,4 +8,6 @@ interface MediaRepository {
 
     fun getPopularMovies(): Flow<PagingData<Media>>
     fun getTopRatedMovies(): Flow<PagingData<Media>>
+    fun getUpcomingMovies(): Flow<PagingData<Media>>
+    fun getTheaterMovies(): Flow<PagingData<Media>>
 }

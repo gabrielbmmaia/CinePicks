@@ -23,6 +23,22 @@ interface TMDBApi {
         @Query("region") region: String = DEFAULT_REGION
     ): MediaResponse
 
+    @GET("movie/upcoming")
+    suspend fun getUpcomingMovies(
+        @Query("page") page: Int,
+        @Query("api_key") key: String = API_KEY,
+        @Query("language") language: String = DEFAULT_LANGUAGE,
+        @Query("region") region: String = DEFAULT_REGION
+    ): MediaResponse
+
+    @GET("movie/now_playing")
+    suspend fun getTheaterMovies(
+        @Query("page") page: Int,
+        @Query("api_key") key: String = API_KEY,
+        @Query("language") language: String = DEFAULT_LANGUAGE,
+        @Query("region") region: String = DEFAULT_REGION
+    ): MediaResponse
+
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/"
         const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
