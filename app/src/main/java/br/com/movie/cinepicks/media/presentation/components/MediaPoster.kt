@@ -1,20 +1,26 @@
 package br.com.movie.cinepicks.media.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -38,26 +44,43 @@ fun MediaPoster(
     val context = LocalContext.current
     val spacing = LocalSpacing.current
     val image = TMDBApi.BASE_IMAGE_URL + media.posterPath
+    val voteAverage = media.voteAverage
 
     Column(
-        modifier = modifier.width(140.dp),
+        modifier = modifier.width(180.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(spacing.spaceSmall)
     ) {
-        AsyncImage(
-            model = ImageRequest.Builder(context)
-                .data(image)
-                .crossfade(true)
-                .build(),
-            contentDescription = stringResource(
-                id = R.string.poster_image
-            ),
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(260.dp)
-                .clip(RoundedCornerShape(spacing.spaceSmall))
-        )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.TopEnd
+        ) {
+            AsyncImage(
+                model = ImageRequest.Builder(context)
+                    .data(image)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = stringResource(
+                    id = R.string.poster_image
+                ),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(270.dp)
+                    .clip(RoundedCornerShape(spacing.spaceSmall))
+            )
+            voteAverage?.let { vote ->
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(spacing.spaceExtraSmall)
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Star,
+                        contentDescription = stringResource(id = R.string.vote_average)
+                    )
+                    Text(text = vote.toString())
+                }
+            }
+        }
         Text(
             text = media.title,
             modifier = Modifier.fillMaxWidth(),
@@ -68,7 +91,7 @@ fun MediaPoster(
 }
 
 
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
 private fun MediaPosterPreview() {
     MediaPoster(

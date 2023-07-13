@@ -5,9 +5,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import br.com.movie.cinepicks.network.TMDBApi
 import br.com.movie.cinepicks.network.dtos.MediaDto
-import javax.inject.Inject
 
-class PopularMoviePagingSource (
+class TopRatedMoviePagingSource (
     private val movieService: TMDBApi
 ) : PagingSource<Int, MediaDto>() {
 
@@ -16,7 +15,7 @@ class PopularMoviePagingSource (
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MediaDto> {
         val currentPage = params.key ?: 1
         return try {
-            val response = movieService.getPopularMovies(page = currentPage)
+            val response = movieService.getTopRatedMovies(page = currentPage)
             LoadResult.Page(
                 data = response.medias,
                 prevKey = if (currentPage == 1) null else currentPage.minus(1),

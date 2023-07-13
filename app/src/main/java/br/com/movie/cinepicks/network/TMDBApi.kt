@@ -15,6 +15,14 @@ interface TMDBApi {
         @Query("region") region: String = DEFAULT_REGION
     ): MediaResponse
 
+    @GET("movie/top_rated")
+    suspend fun getTopRatedMovies(
+        @Query("page") page: Int,
+        @Query("api_key") key: String = API_KEY,
+        @Query("language") language: String = DEFAULT_LANGUAGE,
+        @Query("region") region: String = DEFAULT_REGION
+    ): MediaResponse
+
     companion object {
         const val BASE_URL = "https://api.themoviedb.org/3/"
         const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
