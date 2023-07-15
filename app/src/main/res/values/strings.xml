@@ -4,4 +4,5 @@
     <!--    Content Description-->
     <string name="poster_image">Imagem da mídia</string>
     <string name="vote_average">Nota média</string>
+    <string name="trending_media">Imagem do mídia que está nos Top Trending</string>
 </resources>

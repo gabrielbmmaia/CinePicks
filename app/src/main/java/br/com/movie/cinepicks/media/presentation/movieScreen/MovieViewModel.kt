@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import br.com.movie.cinepicks.media.domain.repository.MediaRepository
+import br.com.movie.cinepicks.media.domain.useCases.GetRandomTrendingMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieViewModel @Inject constructor(
-    private val repository: MediaRepository
+    private val repository: MediaRepository,
+    private val trendingMovie: GetRandomTrendingMovieUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(MovieState())
@@ -66,6 +68,17 @@ class MovieViewModel @Inject constructor(
                                 .cachedIn(this@launch)
                         )
                     }
+                }
+            }
+
+            MovieEvent.OnLoadTrendingMovie -> {
+                viewModelScope.launch {
+                    trendingMovie()
+                        .onSuccess { trendingMovie ->
+                            _state.update {
+                                it.copy(trendingMovie = trendingMovie)
+                            }
+                        }
                 }
             }
         }

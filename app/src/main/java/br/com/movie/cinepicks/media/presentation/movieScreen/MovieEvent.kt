@@ -5,4 +5,5 @@ sealed class MovieEvent {
     object OnLoadTopRatedList : MovieEvent()
     object OnLoadUpcomingList : MovieEvent()
     object OnLoadTheaterList : MovieEvent()
+    object OnLoadTrendingMovie : MovieEvent()
 }

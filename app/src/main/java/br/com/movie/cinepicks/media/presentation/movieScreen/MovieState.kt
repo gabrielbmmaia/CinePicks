@@ -9,5 +9,6 @@ data class MovieState(
     val popularList: Flow<PagingData<Media>> = flowOf(PagingData.empty()),
     val topRatedList: Flow<PagingData<Media>> = flowOf(PagingData.empty()),
     val upcomingList: Flow<PagingData<Media>> = flowOf(PagingData.empty()),
-    val theaterList: Flow<PagingData<Media>> = flowOf(PagingData.empty())
+    val theaterList: Flow<PagingData<Media>> = flowOf(PagingData.empty()),
+    val trendingMovie: Media? = null
 )

@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -13,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.collectAsLazyPagingItems
 import br.com.movie.cinepicks.media.presentation.components.MediaList
+import br.com.movie.cinepicks.media.presentation.components.TrendingMedia
 import br.com.movie.cinepicks.ui.LocalSpacing
 
 @Composable
@@ -25,6 +28,7 @@ fun MovieScreen(
         onEvent(MovieEvent.OnLoadTopRatedList)
         onEvent(MovieEvent.OnLoadUpcomingList)
         onEvent(MovieEvent.OnLoadTheaterList)
+        onEvent(MovieEvent.OnLoadTrendingMovie)
     }
 
     val spacing = LocalSpacing.current
@@ -36,9 +40,11 @@ fun MovieScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(spacing.spaceMedium)
             .verticalScroll(rememberScrollState())
     ) {
+        TrendingMedia(media = state.trendingMovie)
+        Spacer(modifier = Modifier.height(spacing.spaceMedium))
+
         MediaList(titleList = "Popular", mediaList = popularList)
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 

@@ -1,5 +1,6 @@
 package br.com.movie.cinepicks.media.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -67,4 +68,19 @@ class MediaRepositoryImpl @Inject constructor(
             dtoPagingData.map { it.toMedia() }
         }
     }
+
+    override suspend fun getTrendingMovies(): Result<List<Media>> {
+        return try {
+            val result = tmdbApi.getTrendingMedia(
+                mediaType = TMDBApi.MOVIE_MEDIA_TYPE,
+                timeWindow = TMDBApi.DAY_TIME_WINDOW
+            ).medias.map { it.toMedia() }
+
+            Result.success(result)
+        } catch (e: Exception) {
+            Log.e("MediaRepository", "getTrendingMovies: ${e.stackTrace}")
+            Result.failure(e)
+        }
+    }
+
 }

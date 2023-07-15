@@ -10,4 +10,5 @@ interface MediaRepository {
     fun getTopRatedMovies(): Flow<PagingData<Media>>
     fun getUpcomingMovies(): Flow<PagingData<Media>>
     fun getTheaterMovies(): Flow<PagingData<Media>>
+    suspend fun getTrendingMovies(): Result<List<Media>>
 }
